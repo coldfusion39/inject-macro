@@ -11,7 +11,7 @@ Inject-Macro has been implemented in PowerShell and Python running on Windows. C
 * [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/examples/Inject-Macro.ps1): PowerShell script to inject VBA macro code into Excel documents
 
 ## Requirements ##
-Excel and PowerShell 2.0 or greater are the only requirements for [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/examples/Inject-Macro.ps1).
+Excel and PowerShell 2.0 or greater are the only requirements for [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/examples/Inject-Macro.ps1)
 
 Other than Microsoft Excel and Python 2.7, [inject-macro.py](https://github.com/coldfusion39/inject-macro/blob/master/inject-macro.py) has the following requirements:
 * [comtypes](https://github.com/enthought/comtypes/)
@@ -28,22 +28,22 @@ The following shows the __quickest__ way to install Python 2.7, pip, easy_instal
 ## Examples ##
 __Python__
 
-Use [inject-macro.py](https://github.com/coldfusion39/inject-macro/blob/master/inject-macro.py) to inject the VBA macro 'macro_code' into 'Excel_Document_01.xls'
+Use [inject-macro.py](https://github.com/coldfusion39/inject-macro/blob/master/inject-macro.py) to inject the VBA macro 'macro_code' into 'Excel_01.xls'
 
-`python inject-macro.py -f C:\temp\Excel_Document_01.xls -m C:\temp\macro_code`
+`python inject-macro.py -f C:\Excel_01.xls -m C:\macro_code`
 
-Use [inject-macro.py](https://github.com/coldfusion39/inject-macro/blob/master/inject-macro.py) to copy the Excel document 'Excel_Document_01.xls' and inject the VBA macro 'macro_code' into the new document 'Excel_Document_02.xls'
+Use [inject-macro.py](https://github.com/coldfusion39/inject-macro/blob/master/inject-macro.py) to copy the Excel document 'Excel_01.xls' and inject the VBA macro 'macro_code' into the new document 'Excel_02.xls'
 
-`python inject-macro.py -f C:\temp\Excel_Document_01.xls -m C:\temp\macro_code -o Excel_Document_02`
+`python inject-macro.py -f C:\Excel_01.xls -m C:\macro_code -o Excel_02`
 
 ---
 
 __PowerShell__
 
-Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/examples/Inject-Macro.ps1) to inject the VBA macro 'macro_code' into 'Excel_Document_01.xls'
+Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/examples/Inject-Macro.ps1) to inject the VBA macro 'macro_code' into 'Excel_01.xls'
 
-`C:\PS> .\Inject-Macro.ps1 -Excel C:\temp\Excel_Document_01.xls -Macro C:\temp\macro_code`
+`.\Inject-Macro.ps1 -Excel C:\Excel_01.xls -Macro C:\macro_code`
 
 Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/examples/Inject-Macro.ps1) recursively search 'C:\Users\' for all '.xls' files and inject 'macro_code' into each document
 
-`C:\PS> .\Inject-Macro.ps1 -Excel C:\Users\ -Macro C:\temp\macro_code -Infect`
+`.\Inject-Macro.ps1 -Excel C:\Users\ -Macro C:\macro_code -Infect`
