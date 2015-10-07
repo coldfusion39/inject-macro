@@ -47,3 +47,10 @@ Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/
 Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/examples/Inject-Macro.ps1) recursively search 'C:\Users\' for all '.xls' files and inject 'macro_code' into each document
 
 `.\Inject-Macro.ps1 -Excel C:\Users\ -Macro C:\macro_code -Infect`
+
+## Credits ##
+Special Thanks:
+
+ * Jeff McCutchan - jamcut ([@jamcut](https://twitter.com/jamcut))
+
+ * Spencer McIntyre - zeroSteiner ([@zeroSteiner](https://twitter.com/zeroSteiner))
