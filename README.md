@@ -2,9 +2,9 @@
 Inject VBA macro code into Excel documents
 
 ## Summary ##
-Inject-Macro allows for injection of VBA macros into Microsoft Office Excel files; specifically targeting Excel 97-2003 '.xls' files due to the ability of these files to contain VBA macros without having a '.xlsm' file extension.
+Inject-Macro allows for injection of VBA macros into Microsoft Office Excel documents; specifically targeting Excel 97-2003 '.xls' files due to the ability of these files to contain VBA macros without having a '.xlsm' file extension.
 
-Inject-Macro has been implemented in PowerShell and Python running on Windows. Currently `inject-macro.py` only works on Windows systems running Python 2.7. This is because the Excel files are modified through the Windows COM interface using the [comtypes](https://github.com/enthought/comtypes/) Python library.
+Inject-Macro has been implemented in PowerShell and Python running on Windows. Currently `inject-macro.py` only works on Windows systems running Python 2.7. This is because the Excel documents are modified through the Windows COM interface using the [comtypes](https://github.com/enthought/comtypes/) Python library.
 
 ## Files ##
 * [inject-macro.py](https://github.com/coldfusion39/inject-macro/blob/master/inject-macro.py): Python script to inject VBA macro code into Excel documents
@@ -44,9 +44,12 @@ Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/
 
 `.\Inject-Macro.ps1 -Excel C:\Excel_01.xls -Macro C:\macro_code`
 
-Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1) recursively search 'C:\Users\' for all '.xls' files and inject 'macro_code' into each document
+Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1) to recursively search 'C:\Users\' for all '.xls' files and inject 'macro_code' into each document
 
 `.\Inject-Macro.ps1 -Excel C:\Users\ -Macro C:\macro_code -Infect`
+
+Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1) to remove the previously injected VBA macros from the targeted Excel documents.
+`.\Inject-Macro.ps1 -Clean`
 
 ## Credits ##
 Special Thanks:
