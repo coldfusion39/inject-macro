@@ -2,54 +2,31 @@
 Inject VBA macro code into Excel documents
 
 ## Summary ##
-Inject-Macro allows for injection of VBA macros into Microsoft Office Excel documents; specifically targeting Excel 97-2003 '.xls' files due to the ability of these files to contain VBA macros without having a '.xlsm' file extension.
+Inject-Macro allows for injection of VBA macros into Microsoft Excel documents; specifically targeting the 97-2003 '.xls' Excel file format due to their ability to contain VBA macros without having a '.xlsm' file extension.
 
-Inject-Macro has been implemented in PowerShell and Python running on Windows. Currently `inject-macro.py` only works on Windows systems running Python 2.7. This is because the Excel documents are modified through the Windows COM interface using the [comtypes](https://github.com/enthought/comtypes/) Python library.
+Inject-Macro requires an Excel file, specified with '-Excel', and a plain text VBA macro file, specified with '-Macro'. The macro will be injected into the Excel document and file metadata such as the last author will be removed. This is intended to be a quick way to prepare a templated Excel document with a macro payload.
 
-## Files ##
-* [inject-macro.py](https://github.com/coldfusion39/inject-macro/blob/master/inject-macro.py): Python script to inject VBA macro code into Excel documents
-* [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1): PowerShell script to inject VBA macro code into Excel documents
+If the '-Infect' flag is given, the supplied VBA macro will be injected into all Excel documents found in the specified '-Excel' directory path. Ideally this would be used to establish a low level form of persistence. The Excel 'Security' registry keys are disabled and not re-enabled on exit. This removes that pesky 'Macros have been disabled.' warning, and executes the macro without prompting the user. Additionally, the 'LastAccessTime', 'LastWriteTime' and 'Author' file properties of the Excel document are initially copied and replaced after injection to make the file appear untouched. For clean-up, the location of all injected Excel documents are written to 'excel_inject.log'. 
+
+If the '-Clean' flag is given, the 'excel_inject.log' file must be in the same directory as Inject-Macro.ps1. The macros will be removed from the injected Excel documents and the registry keys will be re-enabled.
 
 ## Requirements ##
 Excel and PowerShell 2.0 or greater are the only requirements for [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1)
 
-Other than Microsoft Excel and Python 2.7, [inject-macro.py](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1) has the following requirements:
-* [comtypes](https://github.com/enthought/comtypes/)
-* [colorama](https://github.com/tartley/colorama) (Optional)
-
-## Setup ##
-The following shows the __quickest__ way to install Python 2.7, pip, easy_install, and the above required dependencies:
-
-* Download and install [Python 2.7](https://www.python.org/downloads/release/python-2710/), make sure to select the option to add 'python.exe' to your system path
-* Download and install [easy_install](https://bootstrap.pypa.io/ez_setup.py): `C:\> python ez_setup.py`
-* Download and install [pip](https://bootstrap.pypa.io/get-pip.py): `C:\> python get-pip.py`
-* Install [comtypes](https://github.com/enthought/comtypes/) and [colorama](https://github.com/tartley/colorama) using pip: `C:\> pip install comtypes colorama`
-
 ## Examples ##
-__Python__
-
-Use [inject-macro.py](https://github.com/coldfusion39/inject-macro/blob/master/inject-macro.py) to inject the VBA macro 'macro_code' into 'Excel_01.xls'
-
-`python inject-macro.py -f C:\Excel_01.xls -m C:\macro_code`
-
-Use [inject-macro.py](https://github.com/coldfusion39/inject-macro/blob/master/inject-macro.py) to copy the Excel document 'Excel_01.xls' and inject the VBA macro 'macro_code' into the new document 'Excel_02.xls'
-
-`python inject-macro.py -f C:\Excel_01.xls -m C:\macro_code -o Excel_02`
-
----
-
 __PowerShell__
 
-Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1) to inject the VBA macro 'macro_code' into 'Excel_01.xls'
+Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1) to inject a VBA macro into a single Excel document
 
-`.\Inject-Macro.ps1 -Excel C:\Excel_01.xls -Macro C:\macro_code`
+`C:\PS> Inject-Macro -Excel C:\Users\Test\Excel.xls -Macro C:\temp\Macro.vba`
 
-Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1) to recursively search 'C:\Users\' for all '.xls' files and inject 'macro_code' into each document
+Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1) to recursively search a directory for all '.xls' files and inject a VBA macro into each document
 
-`.\Inject-Macro.ps1 -Excel C:\Users\ -Macro C:\macro_code -Infect`
+`C:\PS> Inject-Macro -Excel C:\Users\ -Macro C:\temp\Macro.vba -Infect`
 
-Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1) to remove the previously injected VBA macros from the targeted Excel documents.
-`.\Inject-Macro.ps1 -Clean`
+Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1) to remove the previously injected VBA macros from the targeted Excel documents
+
+`C:\PS> Inject-Macro -Clean`
 
 ## Credits ##
 Special Thanks:
