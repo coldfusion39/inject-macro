@@ -14,8 +14,6 @@ If the '-Clean' flag is given, the 'excel_inject.log' file must be in the same d
 Excel and PowerShell 2.0 or greater are the only requirements for [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1)
 
 ## Examples ##
-__PowerShell__
-
 Use [Inject-Macro.ps1](https://github.com/coldfusion39/inject-macro/blob/master/Inject-Macro.ps1) to inject a VBA macro into a single Excel document
 
 `C:\PS> Inject-Macro -Excel C:\Users\Test\Excel.xls -Macro C:\temp\Macro.vba`

@@ -17,7 +17,7 @@ Ideally this would be used to establish a low level form of persistence.
 
 If the '-Infect' flag is given, the supplied VBA macro code will be injected into all Excel documents in the specified '-Excel' directory path. 
 
-The Excel 'Security' registry keys are not re-enabled on exit when the '-Inject' flag is given, which disables the 'Macros have been disabled.' warning. 
+The Excel 'Security' registry keys are not re-enabled on exit when the '-Infect' flag is given, which disables the 'Macros have been disabled.' warning. 
 
 For clean up, all injected Excel documents' full paths are written to 'excel_inject.log'.
 
@@ -156,7 +156,7 @@ Removes the VBA macro from all '.xls' injected Excel documents found in 'excel_i
 		Write-Host 'Macro has been injected into all Excel documents' -foregroundcolor green
 	}
 
-	# Clean up for -Inject
+	# Clean up for -Infect
 	function Local:Clean {
 		if ((Test-Path 'excel_inject.log' -pathType container) -eq $False) {
 			Get-Content 'excel_inject.log' | Foreach-Object {
