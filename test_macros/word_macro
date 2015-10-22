@@ -1,0 +1,7 @@
+Sub AutoOpen()
+	Test
+End Sub
+
+Public Function Test() As Variant
+	MsgBox "This is a test Word macro!"
+End Function
